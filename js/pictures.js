@@ -14,7 +14,7 @@ var COMMENTS = [
 
 var picture = [];
 var gallery = document.querySelector('.gallery-overlay');
-var galleryClose = document.querySelector('.gallery-overlay-close');
+var galleryClose = gallery.querySelector('.gallery-overlay-close');
 
 /**
  * Создает рандомное количество комментариев
@@ -131,11 +131,12 @@ galleryClose.addEventListener('click', function () {
 var inputUpload = document.querySelector('#upload-file');
 var uploadForm = document.querySelector('.upload-form');
 var editor = document.querySelector('.upload-overlay');
-var editorClose = document.querySelector('.upload-form-cancel');
+var editorClose = editor.querySelector('.upload-form-cancel');
 
 var ESC_KEYCODE = 27;
 
 var showForm = function () {
+
 
   /**
    * Закрывает окно по нажатию на ESC
@@ -175,6 +176,90 @@ var showForm = function () {
 
 showForm();
 
+/**
+ * Отправка формы
+ */
+var commentField = editor.querySelector('.upload-form-description');
+
+commentField.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    evt.stopPropagation();
+  }
+});
+
+/**
+ * Валидация формы
+ */
+var tagsField = editor.querySelector('.upload-form-hashtags');
+var MAX_HASHTAGS = 5;
+var MAX_LENGTH_HASHTAG = 20;
+var MIN_LENGTH_HASHTAG = 2;
+
+var validateForm = function () {
+
+  var tagsHandler = function (stringOfTags) {
+    var errorMessage = '';
+
+    stringOfTags = stringOfTags.trim();
+    stringOfTags = stringOfTags.toLowerCase();
+
+    var hashtags = stringOfTags.split(' ');
+
+    hashtags = hashtags.filter(function (item) {
+      return item !== '';
+    });
+
+    if (hashtags.length > MAX_HASHTAGS) {
+      errorMessage += 'Не больше 5 хэш-тегов.';
+    }
+
+    hashtags.forEach(function (item) {
+      if (item.length > MAX_LENGTH_HASHTAG) {
+        errorMessage += 'Длина хэш-тега не больше 20 символов.';
+      }
+
+      if (item[0] !== '#') {
+        errorMessage += 'Хэш-тег должен начинаться с символа "#".';
+      }
+
+      if (item.length < MIN_LENGTH_HASHTAG) {
+        errorMessage +=
+          'После символа "#" минимум 1 знак.';
+      }
+
+      if (~item.indexOf('#', 1)) {
+        errorMessage += 'Хэш-теги отделяются пробелом.';
+      }
+    });
+
+    var isDuplicate = function (item, i, array) {
+      return ~array.indexOf(item, i + 1);
+    };
+
+    if (hashtags.some(isDuplicate)) {
+      errorMessage += 'Запрещены повторяющие хэш-теги.';
+    }
+
+    if (errorMessage) {
+      tagsField.setCustomValidity(errorMessage);
+    } else {
+      tagsField.setCustomValidity('');
+      tagsField.style.border = '';
+    }
+  };
+
+  tagsField.addEventListener('input', function (evt) {
+    tagsHandler(evt.target.value);
+  });
+
+  uploadForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+  });
+
+};
+
+validateForm();
+
 var sliderPin = document.querySelector('.upload-effect-level-pin');
 
 sliderPin.addEventListener('mouseup', function () {
@@ -188,7 +273,6 @@ var marvin = effectControl.querySelector('.upload-effect-label-marvin');
 var phobos = effectControl.querySelector('.upload-effect-label-phobos');
 var heat = effectControl.querySelector('.upload-effect-label-heat');
 var original = effectControl.querySelector('#upload-effect-none');
-
 
 /**
  * Переключение фильтров
