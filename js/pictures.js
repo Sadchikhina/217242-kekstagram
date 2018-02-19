@@ -137,7 +137,6 @@ var ESC_KEYCODE = 27;
 
 var showForm = function () {
 
-
   /**
    * Закрывает окно по нажатию на ESC
    * @param  {type} evt
@@ -262,7 +261,35 @@ validateForm();
 
 var sliderPin = document.querySelector('.upload-effect-level-pin');
 
-sliderPin.addEventListener('mouseup', function () {
+sliderPin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoords = {
+    x: evt.clientX
+  };
+
+  var onMouseMove = function (moveEvt) {
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX
+    };
+
+    startCoords = {
+      x: moveEvt.clientX
+    };
+
+    sliderPin.style.left = (sliderPin.offsetLeft - shift.x) + 'px';
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+
 });
 
 var imagePreview = document.querySelector('.effect-image-preview');
