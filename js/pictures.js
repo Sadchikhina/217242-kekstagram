@@ -137,7 +137,6 @@ var ESC_KEYCODE = 27;
 
 var showForm = function () {
 
-
   /**
    * Закрывает окно по нажатию на ESC
    * @param  {type} evt
@@ -259,11 +258,6 @@ var validateForm = function () {
 };
 
 validateForm();
-
-var sliderPin = document.querySelector('.upload-effect-level-pin');
-
-sliderPin.addEventListener('mouseup', function () {
-});
 
 var imagePreview = document.querySelector('.effect-image-preview');
 var effectControl = document.querySelector('.upload-effect-controls');
