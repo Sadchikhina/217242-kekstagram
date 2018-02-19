@@ -203,7 +203,7 @@ var validateForm = function () {
     stringOfTags = stringOfTags.trim();
     stringOfTags = stringOfTags.toLowerCase();
 
-    var hashtags = stringOfTags.split('');
+    var hashtags = stringOfTags.split(' ');
 
     hashtags = hashtags.filter(function (item) {
       return item !== '';
