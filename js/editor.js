@@ -7,8 +7,6 @@
   var editor = document.querySelector('.upload-overlay');
   var editorClose = editor.querySelector('.upload-form-cancel');
 
-  var ESC_KEYCODE = 27;
-
   var showForm = function () {
 
     /**
@@ -16,9 +14,7 @@
      * @param  {type} evt
      */
     var openEditorHandler = function (evt) {
-      if (evt.keyCode === ESC_KEYCODE) {
-        closeEditor();
-      }
+      window.data.isEscClose(evt, closeEditor);
     };
 
     /**
@@ -51,12 +47,11 @@
 
   /**
    * Отправка формы
+   *
    */
   var commentField = editor.querySelector('.upload-form-description');
 
   commentField.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      evt.stopPropagation();
-    }
+    window.data.isEscClose(evt, evt.stopPropagation);
   });
 })();

@@ -14,8 +14,6 @@
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
   ];
 
-  var ESC_KEYCODE = 27;
-
   var picture = [];
   var gallery = document.querySelector('.gallery-overlay');
   var galleryClose = gallery.querySelector('.gallery-overlay-close');
@@ -112,9 +110,7 @@
      * @param  {type} evt
      */
   var closeGalleryHandler = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      closeGallery();
-    }
+    window.data.isEscClose(evt, closeGallery);
   };
 
   /**
