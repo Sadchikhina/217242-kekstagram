@@ -1,45 +1,69 @@
 'use strict';
-
+/**
 (function () {
 
+  var uploadForm = document.querySelector('.upload-form');
   var imagePreview = document.querySelector('.effect-image-preview');
   var effectControl = document.querySelector('.upload-effect-controls');
-  var chrome = effectControl.querySelector('.upload-effect-label-chrome');
-  var sepia = effectControl.querySelector('.upload-effect-label-sepia');
-  var marvin = effectControl.querySelector('.upload-effect-label-marvin');
-  var phobos = effectControl.querySelector('.upload-effect-label-phobos');
-  var heat = effectControl.querySelector('.upload-effect-label-heat');
-  var original = effectControl.querySelector('#upload-effect-none');
 
+  var sliderBar = effectControl.querySelector('.upload-effect-level');
+  var sliderLine = document.querySelector('.upload-effect-level-line');
+  var sliderIntensity = document.querySelector('.upload-effect-level-val');
+  var sliderPin = document.querySelector('.upload-effect-level-pin');
+  var sliderValue = document.querySelector('.upload-effect-level-value');
 
-  original.addEventListener('click', function () {
-    imagePreview.className = 'upload-effect-label';
+  uploadForm.addEventListener('click', function (evt) {
+    var target = evt.target;
+    if (target.classList !== 'effect-image-preview') {
+      setEffect();
+      displaySliderControls();
+    }
   });
 
-  chrome.addEventListener('click', function () {
+  uploadForm.addEventListener('reset', function () {
     imagePreview.className = 'upload-effect-label';
-    imagePreview.classList.add('effect-chrome');
+    sliderBar.classList.add('hidden');
   });
 
-  sepia.addEventListener('click', function () {
-    imagePreview.className = 'upload-effect-label';
-    imagePreview.classList.add('effect-sepia');
-  });
+  var calculateFilter = function (filterName) {
+    switch (filterName) {
+      case 'none':
+        sliderBar.classList.add('hidden');
+        break;
+      case 'chrome':
+        filterName = 'grayscale(' + sliderValue.value + ')';
+        break;
+      case 'sepia':
+        filterName = 'sepia(' + sliderValue.value + ')';
+        break;
+      case 'marvin':
+        filterName = 'invert(' + sliderValue.value * 100 + '%)';
+        break;
+      case 'phobos':
+        filterName = 'blur(' + sliderValue.value * 3 + 'px)';
+        break;
+      case 'heat':
+        filterName = 'brightness(' + sliderValue.value * 3 + ')';
+        break;
+      default: break;
+    }
+    return filterName;
+  };
 
-  marvin.addEventListener('click', function () {
-    imagePreview.className = 'upload-effect-label';
-    imagePreview.classList.add('effect-marvin');
-  });
+  var setEffect = function (evt) {
+    var target = evt.target;
+    if (target.name === 'effect') {
+      imagePreview.classList.add('effect-' + 'filterName');
+    }
+  };
 
-  phobos.addEventListener('click', function () {
-    imagePreview.className = 'upload-effect-label';
-    imagePreview.classList.add('effect-phobos');
-  });
+  var getCurrentFilter = function () {
+    if (imagePreview.checked) {
 
-  heat.addEventListener('click', function () {
-    imagePreview.className = 'upload-effect-label';
-    imagePreview.classList.add('effect-heat');
-  });
-
+    }
+    // через селектор вычисляет какой фильтр сейчас активен
+  };
 
 })();
+
+**/

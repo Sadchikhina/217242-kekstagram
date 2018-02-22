@@ -15,23 +15,23 @@
   resizeValue.value = 100;
 
   decreasePicture.addEventListener('click', function () {
-    var decreasedValue = Number(resizeValue.value) - STEP;
-    if (decreasedValue < MIN) {
-      decreasedValue = MIN;
+    var newValue = Number(resizeValue.value) - STEP;
+    if (newValue < MIN) {
+      newValue = MIN;
     }
-    var decreasedScale = decreasedValue / 100;
-    resizeValue.value = decreasedValue;
-    imagePreview.style.transform = 'scale(' + decreasedScale + ')';
+    var newScale = newValue / 100;
+    resizeValue.value = newValue;
+    imagePreview.style.transform = 'scale(' + newScale + ')';
   });
 
   increasePicture.addEventListener('click', function () {
-    var increasedValue = Number(resizeValue.value) + STEP;
-    if (increasedValue > MAX) {
-      increasedValue = MAX;
+    var newValue = Number(resizeValue.value) + STEP;
+    if (newValue > MAX) {
+      newValue = MAX;
     }
-    var increasedScale = increasedValue / 100;
-    resizeValue.value = increasedValue;
-    imagePreview.style.transform = 'scale(' + increasedScale + ')';
+    var newScale = newValue / 100;
+    resizeValue.value = newValue;
+    imagePreview.style.transform = 'scale(' + newScale + ')';
   });
 
 })();
