@@ -52,6 +52,6 @@
   var commentField = editor.querySelector('.upload-form-description');
 
   commentField.addEventListener('keydown', function (evt) {
-    window.data.isEscClose(evt, evt.stopPropagation);
+    window.util.isEscClose(evt, evt.stopPropagation);
   });
 })();

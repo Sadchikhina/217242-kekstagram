@@ -3,7 +3,7 @@
 (function () {
   var ESC_KEYCODE = 27;
 
-  window.data = {
+  window.util = {
     isEscClose: function (evt, action) {
       if (evt.keyCode === ESC_KEYCODE) {
         action();
