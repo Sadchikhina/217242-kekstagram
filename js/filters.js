@@ -1,10 +1,12 @@
 'use strict';
+
 /**
 (function () {
 
   var uploadForm = document.querySelector('.upload-form');
   var imagePreview = document.querySelector('.effect-image-preview');
   var effectControl = document.querySelector('.upload-effect-controls');
+
 
   var sliderBar = effectControl.querySelector('.upload-effect-level');
   var sliderLine = document.querySelector('.upload-effect-level-line');
@@ -25,45 +27,56 @@
     sliderBar.classList.add('hidden');
   });
 
-  var calculateFilter = function (filterName) {
+  var calculateFilter = function (filterName, value) {
     switch (filterName) {
       case 'none':
         sliderBar.classList.add('hidden');
         break;
       case 'chrome':
-        filterName = 'grayscale(' + sliderValue.value + ')';
+        filterName = 'grayscale(' + value + ')';
         break;
       case 'sepia':
-        filterName = 'sepia(' + sliderValue.value + ')';
+        filterName = 'sepia(' + value + ')';
         break;
       case 'marvin':
-        filterName = 'invert(' + sliderValue.value * 100 + '%)';
+        filterName = 'invert(' + value * 100 + '%)';
         break;
       case 'phobos':
-        filterName = 'blur(' + sliderValue.value * 3 + 'px)';
+        filterName = 'blur(' + value * 3 + 'px)';
         break;
       case 'heat':
-        filterName = 'brightness(' + sliderValue.value * 3 + ')';
+        filterName = 'brightness(' + value * 3 + ')';
         break;
       default: break;
     }
     return filterName;
   };
 
+  calculateFilter();
+
+  var getCurrentFilter = function () {
+    var effect = document.querySelector('input[name=effect]:checked');
+    return effect ? effect.value : '';
+  };
+
+  getCurrentFilter();
+
   var setEffect = function (evt) {
     var target = evt.target;
-    if (target.name === 'effect') {
+    if (target.classList !== 'effect-image-preview') {
       imagePreview.classList.add('effect-' + 'filterName');
     }
   };
 
-  var getCurrentFilter = function () {
-    if (imagePreview.checked) {
+  var displaySliderControls = function (evt) {
+    var target = evt.target;
+    if (target.id !== 'upload-effect-none') {
 
     }
-    // через селектор вычисляет какой фильтр сейчас активен
+
+    // если фильтр по умолчанию прячет полоску слайдера
+    // если выбран фильтр показывает полоску
   };
 
 })();
-
 **/
